@@ -118,12 +118,3 @@ if(require.main === module) {
         console.log(`Servidor corriendo en http://0.0.0.0:${PORT}`);
     })
 }
-
-// Con:
-if(require.main === module) {
-    app.listen(PORT, '0.0.0.0', () => {
-        console.log(`Servidor corriendo en http://0.0.0.0:${PORT}`);
-    })
-}
-
-module.exports = app;

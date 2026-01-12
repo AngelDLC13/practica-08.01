@@ -4,21 +4,21 @@
     "description": "Mi aplicación Node.js",
     "main": "index.js",
     "scripts": { 
-        "start": "node index.js",
-        "test": "jest --forceExit --detectOpenHandles"
+        "test": "jest"
     },
     "jest": {
-        "testEnvironment": "node",
-        "testTimeout": 10000
+        "testEnvironment": "node"
     },
     "dependencies": {
-        "express": "^4.21.2"
-    },
-    "devDependencies": {
+        "express": "^4.21.2",
         "jest": "^30.0.4",
         "supertest": "^7.1.3"
     },
     "keywords":[],
     "author":"",
-    "license": "ISC"
+    "license": "ISC",
+    "directories": {
+        "test": "tests"
+    },
+    "devDependencies": {}
 }
