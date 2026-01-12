@@ -2,20 +2,20 @@ pipeline {
     agent any
 
     tools {
-        nodejs "Node25" // Verifica que este tool exista en Jenkins
-        // dockerTool no es necesario si Docker está instalado en el agente
+        nodejs "Node18"
+        dockerTool "Dockertool" 
     }
 
     stages {
         stage('Instalar dependencias') {
             steps {
-                sh 'npm ci' // Mejor que npm install para CI
+                sh 'npm install'
             }
         }
 
         stage('Ejecutar tests') {
             steps {
-                sh 'npm test -- --detectOpenHandles' // Flag para evitar que Jest se quede pegado
+                sh 'npm test'
             }
         }
 
@@ -24,11 +24,7 @@ pipeline {
                 expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
             }
             steps {
-                script {
-                    // Verifica permisos de Docker
-                    sh 'docker --version'
-                    sh 'docker build -t hola-mundo-node:latest .'
-                }
+                sh 'docker build -t hola-mundo-node:latest .'
             }
         }
 
@@ -44,22 +40,6 @@ pipeline {
                 '''
             }
         }
-
-        stage('Verificar aplicación') {
-            when {
-                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
-            }
-            steps {
-                sh 'sleep 5' // Espera que la app inicie
-                sh 'curl -f http://localhost:3000 || true'
-            }
-        }
-    }
-    
-    post {
-        always {
-            sh 'docker stop hola-mundo-node || true'
-            sh 'docker rm hola-mundo-node || true'
-        }
     }
 }
+ 
